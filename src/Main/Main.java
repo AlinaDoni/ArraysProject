@@ -2,6 +2,7 @@
 package Main;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 	
@@ -16,8 +17,10 @@ public class Main {
 	 * @return maximum value from array 
 	 */
 	public int maxNum(int[] arrays) {
-		//TODO
-		return -1;
+		Arrays.sort(arrays);
+		int MaxNum= arrays[arrays.length-1];
+			return MaxNum;
+
 	}
 	
 	/**
@@ -28,8 +31,13 @@ public class Main {
 	 * @return sum of odd numbers in the array
 	 */
 	public int sumOfOdds(int[] array) {
-		// TODO
-        return -1;	
+		int sum=0;
+		for (int num:array) {
+			if (num % 2 !=0){
+				sum+= num;
+			}
+		}
+        return sum;
 	}
 	
 	/**
@@ -38,13 +46,21 @@ public class Main {
 	 * or three consecutive odd numbers. Return false otherwise. 
 	 * threeAmigos([2, 1, 3, 5]) -> true 
 	 * threeAmigos([2, 1, 2, 5]) -> false 
-	 * threeAmigos([2, 4, 2, 5]) -> true
+	 * threeAmigos([0,1,1,2, 4, 2, 5]) -> true
 	 * 
 	 */
 
 	public boolean threeAmigos(int[] array) {
-		// TODO
-		return false;
+		boolean result= false;
+		// length -1 coulbe i so i+2 is gonna be length +1
+		for (int i=0; i+2< array.length; i++) {
+			if (array[i] % 2 == 0 && array[i+1]%2==0 && array[i+2]%2==0){
+				result= true;
+			} else if (array[i]%2!=0 && array[i+1]!=0 && array[i+2] !=0){
+				result =true;
+			}
+			}
+		return result;
 	}
 	
 	
@@ -57,8 +73,17 @@ public class Main {
 	 * @return boolean
 	 */
 	public boolean make100With2(int[] nums) {
-		// TODO
-		return false;
+		boolean result= false;
+		for (int i=0;i<nums.length;i++ ){
+			for (int j=1;j<nums.length; j++){
+				int sum = nums[i]+ nums[j];
+				if (sum == 100){
+					result=true;
+				}
+			}
+		}
+
+		return result;
 	}
 
 
@@ -76,8 +101,23 @@ public class Main {
 	  * @return switched pairs array
 	  */
 	public String[] switchPairs(String[] list){
-		//TODO
-		return null;
+
+		String str[] = new String[list.length];
+		if (list.length%2 == 0 ){
+			for (int i = 0, s = 1 ; s<list.length; i+=2, s+=2 ){
+				str[i] = list[s];
+				str[s] = list[i];
+			}
+		}else if (list.length%2 != 0 && list.length > 1) {
+			for (int i = 0, s = 1 ; s<list.length-1; i+=2, s+=2 ){
+				str[i] = list[s];
+				str[s] = list[i];
+				str[str.length-1] = list[list.length-1];
+			}
+		}else if (list.length == 1){
+			str[0] = list[0];
+		}
+		return str;
 	}
 	
 	/**
@@ -91,7 +131,11 @@ public class Main {
 	 *  int[]pages3={20,21,22,78,84,90};-> method will return -1
 	 */
 	public int outOfOrder(int[] arr){
-		//TODO
+		for(int a = 0;a+1< arr.length;a++){
+			if(arr[a]>arr[a+1]){
+				return arr[a+1];
+			}
+		}
 		return -1;
 	}
 
@@ -111,8 +155,18 @@ public class Main {
 	 */
 
 	public boolean contains12(int[] nums) {
-		// TODO
-		return false;
+		boolean result = false;
+		for (int i=0; i<nums.length; i++){
+			for (int j=0; j<i; j++){
+			if (nums[j]==1 && nums[i]==2 && j<i){
+			result =true;
+			}
+			else {
+				result=false;
+			}
+			}
+		}
+		return result;
 	}
 	
 	/**
@@ -128,7 +182,10 @@ public class Main {
 	 * @return combined numbers of array
 	 */
 	public long combineNumbers(int[] numbers) {
-		//TODO
+		long n=0;
+		for (int i=0; i<numbers.length; i++) {
+			n = numbers[i];
+		}
 		return -1;
 	}
 	
@@ -144,8 +201,36 @@ public class Main {
 	 * @return array of unique numbers
 	 */
 	public int[] removeDuplicates(int[] nums) {
-		//TODO
-		return null;
+		int countOfDuplicate=0;
+		for (int i=0; i< nums.length; i++){
+			int number=nums[i];
+			for (int j= i+1; j<nums.length; j++){
+				if (number == nums[j]) {
+					countOfDuplicate++;
+				}
+			}
+		}
+		int uniques[]= new int[nums.length-countOfDuplicate];
+		int indexNumberForUnique=0;
+		int coundOf0=1;
+		for (int i=0; i<nums.length; i++) {
+			int number= nums[i];
+			if (number==0 && coundOf0==1){
+				uniques[indexNumberForUnique++]=number;
+				coundOf0++;
+				continue;
+			}
+			boolean isUniqueContainNumber=false;
+			for (int j=0; j<uniques.length; j++){
+				if (number== uniques[j]){
+					isUniqueContainNumber=true;
+				}
+			}
+			if(isUniqueContainNumber==false){
+				uniques[indexNumberForUnique]=number;
+				indexNumberForUnique++;
+			}
+		}return uniques;
 	}
 
 }
